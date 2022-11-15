@@ -1,0 +1,111 @@
+1.Laravel 9 Ecommerce - Part 1: Laravel 9 & Livewire Installation and file setup with DB connection
+<div>
+1.composer create-project laravel/laravel Laravel9Ecommerce
+2.composer require livewire/livewire
+...
+    @livewireStyles
+	<html>
+	<head>
+	
+</head>
+<body>
+    ... 
+    @livewireScripts
+</body>
+</html>
+
+</div>
+
+Laravel 9 Ecom - Part 2 : Make login & registration system & integrate bootstrap 5 & Livewire Setup
+Laravel 9 Ecommerce - Part 3: How to setup Admin Panel for ecommerce in laravel 9
+<div>
+---composer require laravel/jetstream
+---php artisan jetstream:install livewire
+--npm install
+
+vendor>laravel>fortify>sec>rules>password.php-de  protected $length = 8; login sehifesindeki parolun nece karakter olmasini teyin edir 
+
+
+
+1.composer require laravel/ui 
+2.php artisan ui:auth
+3.tampade parcala
+4.php artisan make:controller Admin\DashboardController
+5.php artisan make:controller HomeController 
+</div>
+
+Laravel 9 Ecom - Part 4: How to make Admin Middleware in laravel | redirect admin login to dashboard
+<div>
+1.php artisan make:migration add_details_to_users_table         -> user cedvele elave etmek ucun
+up terefde   $table->tinyInteger('role_as')->default('0')->comment('0=user,1=admin');
+down terefde $table->dropColumn('role_as');
+2.php artisan make:middleware AdminMiddleware
+
+        if (Auth::user()->type==='admin')
+        {
+            return $next($request);
+        }
+        else
+        {
+            session()->flush();
+            return redirect()->route('login');
+        }
+		
+		---------bide basqa cur 
+		
+        if (!Auth::user()->role_as == '1')
+        {
+            return redirect('/login')->with('status','Acces Denied. As you are not Admin');
+        }
+sonra
+LoginController-de	
+	
+    //protected $redirectTo = RouteServiceProvider::HOME;			-> deaktiv ele ve yerine authenticated yarat
+
+    public function authenticated(Request $request, $user)
+    {
+        if (Auth::user()->role_as == '1')
+        {
+            return redirect('back/dashboard')->with('status','Welcome to Dashboard');
+        }
+        else
+        {
+            return redirect('home')->with('status','Logged is Succecfull');
+        }
+		
+		
+		-----------
+---> Kornel.php-de
+'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,  
+---> web.php-de roote elave le middleware
+
+Route::prefix('back')->middleware(['auth','isAdmin'])->group(function ()
+{
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+});
+--->     dashboard.blade.php session (--> return redirect('back/dashboard')->with('status','Welcome to Dashboard' <--)cagirmaq ucu
+          @if(session('message'))
+           <h2>{{session('message')}}</h2>
+           @endif		
+</div>
+Laravel 9 Ecommerce - Part 5: How to make admin logout system in laravel 9 for ecommerce
+<div>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="mdi mdi-logout text-primary"></i>   {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+</div>
+Laravel 9 Ecommerce - Part 6: Add Category in ecommerce with creating migration, model, controller
+<div>
+1. php artisan make:migration create_categories_table
+2. php artisan make:model Category
+3. form ucun forma hazirlanir
+4. php artisan make:request CategoryFormRequest
+
+
+</div>
