@@ -25,7 +25,7 @@
                 </div>
             </li>
 
-          {{--  <li class="nav-item">
+           <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                     <i class="mdi mdi-circle-outline menu-icon"></i>
                     <span class="menu-title">UI Elements</span>
@@ -83,7 +83,9 @@
                     <i class="mdi mdi-file-document-box-outline menu-icon"></i>
                     <span class="menu-title">Documentation</span>
                 </a>
-            </li>--}}
+            </li>
         </ul>
     </nav>
     <!-- partial -->
+    <div class="main-panel">
+        <div class="content-wrapper">

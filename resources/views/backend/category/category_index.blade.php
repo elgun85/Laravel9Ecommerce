@@ -1,34 +1,9 @@
 @extends('backend.layouts.master')
 @section('content')
 
-
-
-    <div class="main-panel">
-        <div class="content-wrapper">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>
-                                Category
-                                <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-end">Add Category</a>
-                            </h3>
-                        </div>
-
-                        <div class="card-body">
-                            gd
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <livewire:admin.category.index />
             </div>
-
-
-
-
-
-
-
 
 @endsection
 
@@ -39,7 +14,7 @@
                       crossorigin="anonymous" referrerpolicy="no-referrer" />
             @endsection
 
-            @section('toastr_js')zzzzzzzz
+            @section('toastr_js')
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
                     integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -83,5 +58,4 @@
                     @endif
                 });
             </script>
-            zzzz
-@endsection
+            @endsection
