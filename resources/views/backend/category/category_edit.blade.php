@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','Create new Category')
+@section('title','Update the Category')
 
 @section('content')
     <div class="main-panel">
@@ -10,18 +10,20 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>
-                                Add Category
-                                <a href="{{route('category.create')}}" class="btn btn-outline-danger btn-sm  float-end"> Back</a>
+                                Edit Category
+                                <a href="{{route('category.index')}}" class="btn btn-outline-danger btn-sm text-white float-end"> Back</a>
                             </h3>
                         </div>
 
                         <div class="card-body">
-                            <form action="{{route('category.index')}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('category.update',$category->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
+
                                 <div class="row">
               <div class="form-group col-md-12">
                   <div class="form-group">
-                      <input type="file" class="form-control" name="image" placeholder="Choose image" id="image">
+                      <input type="file" name="image" placeholder="Choose image" id="image">
                         @error('image')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -29,13 +31,14 @@
               </div>
 
               <div class="form-group col-md-12 mb-2">
-                  <img class="rounded float-start" id="preview-image-before-upload" src=""
+                  <img class="rounded-circle" id="preview-image-before-upload"
+                       src="@if($category->image) {{asset($category->image)}} @endif"
                      style="max-height: 150px;max-width: 150px;" >
               </div>
 
                                     <div class="form-group col-md-12">
                                         <label for="">Name</label>
-                                                   <input type="text" name="name" placeholder="Name" class="form-control" value="{{old('name')}}">
+                                                   <input type="text" name="name" class="form-control" value="{{$category->name}}">
                                             @error('name') <smal class="text-danger">{{$message}}</smal> @enderror
                                     </div>
 
@@ -43,7 +46,7 @@
 
                                     <div class="form-group col-md-6 mb-3">
                                         <label for="">Status</label><br>
-                                        <input type="checkbox" name="status" >
+                                        <input type="checkbox"  name="status" {{$category->status =='1'? 'checked':'' }} >
                                     </div>
 
 {{--                                    <div class="form-group col-md-12">
@@ -52,30 +55,30 @@
 
                                     <div class="form-group col-md-12 mb-3">
                                         <label for="">Meta_title</label>
-                                        <input type="text" name="meta_title" class="form-control" placeholder="Meta_title" value="{{old('meta_title')}}">
+                                        <input type="text" name="meta_title" class="form-control" placeholder="Meta_title" value="{{$category->meta_title}}">
                                         @error('meta_title') <smal class="text-danger">{{$message}}</smal> @enderror
                                     </div>
 
                                     <div class="form-group col-md-12 mb-3">
                                         <label for="">Meta_keyword</label>
-                                        <input type="text" name="meta_keyword" class="form-control" placeholder="Meta_keyword" value="{{old('meta_keyword')}}">
+                                        <input type="text" name="meta_keyword" class="form-control" placeholder="Meta_keyword" value="{{$category->meta_keyword}}">
                                         @error('meta_keyword') <smal class="text-danger">{{$message}}</smal> @enderror
                                     </div>
 
                                     <div class="form-group col-md-12 mb-3">
                                         <label for="">Description</label>
-                                        <textarea id="description" class="form-control" name="description" id="" rows="3">{{old('description')}}</textarea>
+                                        <textarea id="description" class="form-control" name="description" id="" rows="3">{{$category->description}}</textarea>
                                         @error('description') <smal class="text-danger">{{$message}}</smal> @enderror
                                     </div>
 
                                     <div class="form-group col-md-12 mb-3">
                                         <label for="">Meta_description</label>
-                                        <textarea id="meta_description" class="form-control" name="meta_description" id="" rows="3">{{old('meta_description')}}</textarea>
+                                        <textarea id="meta_description" class="form-control" name="meta_description" id="" rows="3">{{$category->meta_description}}</textarea>
                                         @error('meta_description') <smal class="text-danger">{{$message}}</smal> @enderror
                                     </div>
 
                                     <div class="form-group col-md-12 mb-3">
-                                        <button type="submit" class="btn btn-outline-primary float-end">Save</button>
+                                        <button type="submit" class="btn btn-outline-primary float-end">Update</button>
 
                                     </div>
 
@@ -115,6 +118,25 @@ $(document).ready(function (e) {
 
 </script>
 
+           {{-- <script
+                type="text/javascript">
+                $(document).ready(function (e) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $('#image').change(function(){
+                        let reader = new FileReader();
+                        reader.onload = (e) => {
+                            $('#preview-image-before-upload').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    });
+
+                });
+
+            </script>--}}
 
 
             @section('summernote_css')
@@ -150,5 +172,29 @@ $(document).ready(function (e) {
                     });
                 </script>
 
+{{--                <script>
+                    $(function () {
+                        // Summernote
+                        $('#summernote').summernote()
 
+                        // CodeMirror
+                        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                            mode: "htmlmixed",
+                            theme: "monokai"
+                        });
+                    })
+                </script>
+
+                <script>
+                    $(function () {
+                        // Summernote
+                        $('#meta_description').summernote()
+
+                        // CodeMirror
+                        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                            mode: "htmlmixed",
+                            theme: "monokai"
+                        });
+                    })
+                </script>--}}
 @endsection
