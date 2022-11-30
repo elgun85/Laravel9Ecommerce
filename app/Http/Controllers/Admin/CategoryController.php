@@ -125,7 +125,7 @@ class CategoryController extends Controller
             'status' => $request->status==true?'1':'0'
         ]);
 
-        $category=Category::findOrFail($id)->update($request->post());;
+        $category=Category::findOrFail($id)->update($request->post());
 
         return redirect()->route('category.index')->with('message','Data updated Successfully');
     }

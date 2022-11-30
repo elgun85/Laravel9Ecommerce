@@ -16,6 +16,43 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    {{--Table start--}}
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($products as $product)
+                            <tr>
+                                <td>{{$product->id}}</td>
+                                <td>{{$product->name}}</td>
+                                <td>{{$product->category->name}}</td>
+                                <td>{{$product->brand}}</td>
+                                <td>{{$product->selling_price}}</td>
+                                <td>{{$product->quantity}}</td>
+                                <td>{{$product->status == '1'? 'Hidden':'Visible'}}</td>
+                                <td>
+                                    <a href="{{route('product.edit',$product->id)}}" class="btn btn-outline-primary btn-sm" ><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('product.delete',$product->id)}}"
+                                       onclick="return confirm('Are you sure,you want to delete this data?')"
+                                       class="btn btn-outline-danger btn-sm"><i class="fas fa-times "></i> </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="8" class="text-center">No Brand Available</td></tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                    {{--Table finish--}}
 
 
 
