@@ -44,6 +44,11 @@
                             <button class="nav-link" id="ProductImage-tab" data-bs-toggle="tab" data-bs-target="#ProductImage" type="button" role="tab" aria-controls="ProductImage" aria-selected="false">
                                 Product Image</button>
                         </li>
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="ProductColor-tab" data-bs-toggle="tab" data-bs-target="#ProductColor" type="button" role="tab" aria-controls="ProductColor" aria-selected="false">
+                                Product Color</button>
+                        </li>
                     </ul>
 
 
@@ -82,12 +87,12 @@
 
                             <div class="form-group  mb-3">
                                 <label for="Description" class="form-label">Description</label>
-                                <textarea id="Description" class="form-control" name="description" id="" rows="3">{{$products->description}}</textarea>
+                                <textarea id="description" class="form-control" name="description" id="" rows="3">{{$products->description}}</textarea>
                             </div>
 
                             <div class="form-group  mb-3">
                                 <label for="Small_description" class="form-label">Small_description</label>
-                                <textarea id="Small_description" class="form-control" name="small_description" id="" rows="3">{{$products->small_description}}</textarea>
+                                <textarea id="small_description" class="form-control" name="small_description" id="" rows="3">{{$products->small_description}}</textarea>
                             </div>
                         </div>
 
@@ -118,14 +123,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="original_price" class="form-label">Original_price</label>
-                                        <input id="original_price" type="number" name="original_price" class="form-control" value="{{$products->original_price}}">
+                                        <input id="original_price" type="text" name="original_price" class="form-control" value="{{$products->original_price}}">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="selling_price" class="form-label">Selling_price</label>
-                                        <input id="selling_price" type="number" name="selling_price"  class="form-control" value="{{$products->selling_price}}">
+                                        <input id="selling_price" type="text" name="selling_price"  class="form-control" value="{{$products->selling_price}}">
                                     </div>
                                 </div>
 
@@ -148,7 +153,8 @@
                                     <div class="form-group mb-3">
                                         <label for="status" class="form-label">Status</label>
                                         <input id="status" type="checkbox" name="status" style="width: 50px;height: 50px"
-                                            {{$products->status  =='1'? 'checked':''}}>
+                                            {{$products->status  =='1'? 'checked':''}}
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -185,14 +191,99 @@
 
 
                     </div>
+{{--                        ProductColor--}}
+                        <div class="tab-pane fade border p-3" id="ProductColor" role="tabpanel" aria-labelledby="ProductColor-tab">
+<div class="mb-3">
+                            <h5>Add product color</h5>
+    <br>
+    <label for="">Select Color </label>
 
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                           <button type="submit" class="btn btn-outline-primary btn-sm float-end btn-rounded"> Update</button>
-                    </div>
-                    </form>
+    <div class="row">
+        @forelse($colors as $color)
+            <div class="col-md-3">
+                <div class="p-2 border mb-3">Color:
+                    <input class="form-check-label" type="checkbox"
+                           name="colors[{{$color->id}}]" style="width: 20px;height: 20px"
+                           value="{{$color->id}}" >
+                    <strong
+                        style="color:{{$color->code}}" >
+                        @if($color->code=='#ebe0e0' or $color->name=='White' or $color->code =='#ffffff' or $color->name=='white')
+                            <strong  style="background-color: #76838f">White</strong>
+                        @else
+                            {{$color->name}}
+                        @endif
+                    </strong>
+                    <br>
+                    Quantity:
+                    <input type="number"  name="Color_quantity[1,3,5]" style="width: 70px;border: 1px solid">
                 </div>
             </div>
+
+        @empty
+            <div class="col-md-12">
+                <h5 class="text-danger">No color found</h5>
+            </div>
+
+        @endforelse
+    </div>
+</div>
+@if(count($products->productColors)>0)
+
+         <hr>
+         <br>
+     <div class="table-responsive">
+         <table class="table   table-sm table table-bordered  table-hover">
+             <thead >
+             <tr>
+                 <th>Color ID</th>
+                 <th>Color Name</th>
+                 <th>Quantity</th>
+                                        <th>Action</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 @foreach($products->productColors as $productColor)
+                     <tr>
+                         @if($productColor->color)
+                             <td>{{$productColor->color->id}}</td>
+              <td>{{$productColor->color->name}}</td>
+              <td>{{$productColor->Color_quantity}}</td>
+              <td> <a href="{{route('product.edit',$productColor->color->id)}}"
+                     data-bs-toggle="modal" data-bs-target="#exampleModal{{$productColor->color->id}}"
+                                        class="btn btn-outline-primary btn-sm" ><i class="fas fa-edit"></i></a>
+                                     <a href="{{route('product.deleteProdColorQty',$productColor->id)}}"
+                                        onclick="return confirm('Are you sure,you want to delete this data?')"
+                                        class="btn btn-outline-danger btn-sm">
+                                         <i class="fas fa-times "></i>
+                                     </a>
+                                 </td>
+                                 @include('backend.product.modal')
+                             @else
+                                 <h3>
+                                     <td>No color found</td>
+                                 </h3>
+                                 @endif
+                         </tr>
+                 @endforeach
+                 </tbody>
+         </table>
+     </div>
+                            @endif
+
+
+                        </div>
+
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                           <button type="submit" class="btn btn-outline-primary btn-sm float-end btn-rounded"> Update</button>
+                    </div>
+
+
+                </div>
+
+            </div>
         </div>
+
+
 
 
     </div>
@@ -222,7 +313,6 @@
 </script>
 
 
-
 @section('summernote_css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
@@ -249,6 +339,17 @@
             $('#description').summernote(
                 {
                     placeholder: 'Descriptionn',
+                    tabsize: 2,
+                    height: 100
+                }
+            );
+        });
+    </script>
+            <script>
+        $(document).ready(function() {
+            $('#meta_description').summernote(
+                {
+                    placeholder: 'Meta_description',
                     tabsize: 2,
                     height: 100
                 }

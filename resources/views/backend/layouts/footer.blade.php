@@ -37,6 +37,7 @@
 <!-- End custom js for this page-->
 @yield('toastr_js')
 @yield('summernote_js')
+@yield('prod_color')
 
 
 

@@ -40,6 +40,10 @@
                             <button class="nav-link" id="ProductImage-tab" data-bs-toggle="tab" data-bs-target="#ProductImage" type="button" role="tab" aria-controls="ProductImage" aria-selected="false">
                                 Product Image</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="ProductColors-tab" data-bs-toggle="tab" data-bs-target="#ProductColors" type="button" role="tab" aria-controls="ProductColors" aria-selected="false">
+                                Product Color</button>
+                        </li>
                     </ul>
 
 
@@ -83,12 +87,12 @@
 
                             <div class="form-group  mb-3">
                                 <label for="Description" class="form-label">Description</label>
-                                <textarea id="Description" class="form-control" name="description" id="" rows="3">{{old('description')}}</textarea>
+                                <textarea id="description" class="form-control" name="description" id="" rows="3">{{old('description')}}</textarea>
                             </div>
 
                             <div class="form-group  mb-3">
                                 <label for="Small_description" class="form-label">Small_description</label>
-                                <textarea id="Small_description" class="form-control" name="small_description" id="" rows="3">{{old('small_description')}}</textarea>
+                                <textarea id="small_description" class="form-control" name="small_description" id="" rows="3">{{old('small_description')}}</textarea>
                             </div>
                         </div>
 
@@ -119,14 +123,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="original_price" class="form-label">Original_price</label>
-                                        <input id="original_price" type="number" name="original_price" placeholder="original_price" class="form-control" value="{{old('original_price')}}">
+                                        <input id="original_price" type="text" name="original_price" placeholder="original_price" class="form-control" value="{{old('original_price')}}">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="selling_price" class="form-label">Selling_price</label>
-                                        <input id="selling_price" type="number" name="selling_price" placeholder="selling_price" class="form-control" value="{{old('selling_price')}}">
+                                        <input id="selling_price" type="text" name="selling_price" placeholder="selling_price" class="form-control" value="{{old('selling_price')}}">
                                     </div>
                                 </div>
 
@@ -168,6 +172,41 @@
                             </div>
 
                         </div>
+
+
+                    </div>
+{{--                           ProductColors--}}
+                        <div class="tab-pane fade border p-3" id="ProductColors" role="tabpanel" aria-labelledby="ProductColors-tab">
+                            <label for="">Select Color</label>
+                            <br>
+                                <div class="row">
+                                    @forelse($colors as $color)
+
+                                        <div class="col-md-3">
+                                            <div class="p-2 border mb-3">Color:
+                                                <input class="form-check-label" type="checkbox"
+                                                       name="colors[{{$color->id}}]" style="width: 20px;height: 20px"
+                                                       value="{{$color->id}}" >
+                                                <strong
+                                                    style="color:{{$color->code}}" >
+                                                    @if($color->code=='#ebe0e0' or $color->name=='White' or $color->code =='#ffffff' or $color->name=='white')
+                                                        <strong  style="background-color: #76838f">White</strong>
+                                                    @else
+                                                        {{$color->name}}
+                                                    @endif
+                                                </strong>
+                                                <br>
+                                                Quantity:
+                                                <input type="number"  name="Color_quantity[{{$color->id}}]" style="width: 70px;border: 1px solid">
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="col-md-12">
+                                            <h5 class="text-danger">No color found</h5>
+                                        </div>
+                                    @endforelse
+                                </div>
+
 
 
                     </div>
@@ -235,6 +274,17 @@
             $('#description').summernote(
                 {
                     placeholder: 'Descriptionn',
+                    tabsize: 2,
+                    height: 100
+                }
+            );
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#meta_description').summernote(
+                {
+                    placeholder: 'Meta_description',
                     tabsize: 2,
                     height: 100
                 }

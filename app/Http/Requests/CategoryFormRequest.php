@@ -26,10 +26,10 @@ class CategoryFormRequest extends FormRequest
         return [
             'name'=>'required|string|min:3|max:250',
             //'slug'=>'required|nullable|string|min:3|max:250',
-            'description'=>'required|string|min:3|max:250',
-            'meta_title'=>'required|string|min:3|max:250',
-            'meta_keyword'=>'required|string|min:3|max:250',
-            'meta_description'=>'required|string|min:3|max:250',
+            'description'=>'required|string|max:250',
+            'meta_title'=>'required|string|max:250',
+            'meta_keyword'=>'required|string|max:250',
+            'meta_description'=>'required|string|max:250',
 
             'image'=>'image|max:3072|mimes:jpg,jpeg,png',
 /*            'name'=>['required','string','max:50'],

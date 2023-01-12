@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
-
+use App\Http\Controllers\Admin\ColorsController;
+use App\Http\Controllers\UpdateProdColorQty;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::prefix('back')->middleware(['auth','isAdmin'])->group(function ()
     Route::resource('category',\App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('brand',BrandController::class);
     Route::resource('product',ProductController::class);
+    Route::resource('colors',ColorsController::class);
 
 
 
@@ -43,4 +45,9 @@ Route::prefix('back')->middleware(['auth','isAdmin'])->group(function ()
     Route::get('BrandDel/{id}',[BrandController::class,'delete'])->name('brand.delete');
     Route::get('ProductDel/{id}',[ProductController::class,'delete'])->name('product.delete');
     Route::get('ProductImageDel/{id}',[ProductController::class,'ProductImageDel'])->name('product.ProductImageDel');
+
+    Route::any('updateProdColorQty/{id}',[ProductController::class,'updateProdColorQty'])->name('product.updateProdColorQty');
+    Route::get('deleteProdColorQty/{id}',[ProductController::class,'deleteProdColorQty'])->name('product.deleteProdColorQty');
+    Route::get('ColorDel/{id}',[ColorsController::class,'delete'])->name('colors.delete');
+
 });
