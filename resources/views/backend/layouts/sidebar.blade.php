@@ -54,8 +54,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('colors.index')}}">
-                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <i class="fa-solid fa-palette menu-icon"></i>
                     <span class="menu-title">Colors</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('slider.index')}}">
+                    <i class="fa-solid fa-sliders menu-icon"></i>
+                    <span class="menu-title">Slider</span>
                 </a>
             </li>
             <li class="nav-item">
