@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Brand;
 
 use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -86,7 +87,8 @@ public function openModal()
 
     public function render()
     {
+        $categories=Category::where('status',0)->get();
         $brands=Brand::orderBy('id','DESC')->paginate(5);
-        return view('livewire.admin.brand.index',compact('brands'));
+        return view('livewire.admin.brand.index',compact('brands','categories'));
     }
 }

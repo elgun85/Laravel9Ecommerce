@@ -102,10 +102,44 @@ Laravel 9 Ecommerce - Part 5: How to make admin logout system in laravel 9 for e
 </div>
 Laravel 9 Ecommerce - Part 6: Add Category in ecommerce with creating migration, model, controller
 <div>
+
+0  php artisan make:controller Admin\CategoryController --resource
+0  php artisan make:model Color
 1. php artisan make:migration create_categories_table
 2. php artisan make:model Category
 3. form ucun forma hazirlanir
-4. php artisan make:request CategoryFormRequest
+4. validation ucun 
+ php artisan make:request CategoryFormRequest yaratd onu controller-de  store(CategoryFormRequest $request)cagirmaq
+   CategoryFormRequest -da 
+   public function authorize()
+    {
+        return false;   ->true ele
+    }
+5.Create.Category.blade sehifede form doldur
+            @section('toastr_css')
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+                      integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+                      crossorigin="anonymous" referrerpolicy="no-referrer" />
+            @endsection
 
+            @section('toastr_js')
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+                    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+            <script>
+			
+6. php artisan make:livewire Admin/Category/Index
+resources\views/livewire/admin\category\index.blade.php -yaradir
+	
+
+
+</div>
+
+</div>
+Laravel 9 Ecom - Part 21: Converting display products in Livewire Component in laravel 9
+<div>
+Laravel 9 Ecom - Part 21: Converting display products in Livewire Component in laravel 9
+1.php artisan make:livewire Frontend/Product/Index
 
 </div>

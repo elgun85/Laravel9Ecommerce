@@ -41,7 +41,7 @@ class ProductFormRequest extends FormRequest
             'meta_keyword'=>'nullable|string|max:250',
             'meta_description'=>'nullable|string|max:250',
 
-         //   'image'=>'nullable|image|max:16892|mimes:jpg,jpeg,png',
+            //'image'=>'nullable|image|max:16892|mimes:jpg,jpeg,png',
             'image'=>'nullable'
         ];
     }

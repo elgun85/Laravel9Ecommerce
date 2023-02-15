@@ -76,9 +76,10 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        $categories=Category::where('status',0)->get();
         $brands=Brand::orderBy('id','DESC')->paginate(5);
         $brands_edit=Brand::find($id) ?? abort(404, 'bele sehife yoxdur');
-        return view('backend.brand.brand_edit',compact('brands','brands_edit'));
+        return view('backend.brand.brand_edit',compact('brands','brands_edit','categories'));
       //  return view('livewire.admin.brand.brand_edit',compact('brands'));
 
 

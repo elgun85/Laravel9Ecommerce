@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ColorsController;
-use App\Http\Controllers\UpdateProdColorQty;
+use App\Http\Controllers\Frontend\WishlistController;
+
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Frontend\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,20 +23,36 @@ use App\Http\Controllers\Admin\SliderController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
-/*Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'back'],function ()
+                            /*         Frontend      */
+
+Route::get('/',[FrontendController::class,'index'])->name('index');
+Route::get('/category',[FrontendController::class,'category'])->name('category');
+
+Route::middleware(['auth'])->group(function ()
 {
-    Route::post('/dashboard_test',[DashboardController::class,'index'])->name('dashboard');
-});
-*/
+    Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlistIndex');
 
+});
+
+Route::get('{category_slug}',[FrontendController::class,'product'])->name('product');
+Route::get('category/{category_slug}/{product_slug}',[FrontendController::class,'productView'])->name('productView');
+
+
+
+
+
+
+                             /*         Backend      */
+//Route::prefix('back')->middleware(['auth','isAdmin'])->group(function ()
 Route::prefix('back')->middleware(['auth','isAdmin'])->group(function ()
 {
+    //Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::resource('category',\App\Http\Controllers\Admin\CategoryController::class);
+    Route::resource('category',CategoryController::class);
     Route::resource('brand',BrandController::class);
     Route::resource('product',ProductController::class);
     Route::resource('colors',ColorsController::class);

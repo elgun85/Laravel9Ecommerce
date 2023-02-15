@@ -142,11 +142,7 @@ class CategoryController extends Controller
     }
     public function delete($id)
     {
-
-
         $data=Category::findOrFail($id);
-
-
         if (File::exists($data->image)) {
 
             File::delete(public_path($data->image));

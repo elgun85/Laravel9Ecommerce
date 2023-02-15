@@ -1,6 +1,6 @@
 
 @extends('backend.layouts.master')
-@section('title','Slider create')
+@section('title','Slider edit')
 @section('content')
 
     <div class="row">
@@ -12,45 +12,51 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3>
-                                        Add Slider
+                                        Edit Slider
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{route('slider.store')}}" method="post" enctype="multipart/form-data">
+                                    <form action="{{route('slider.update',$slider->id)}}" method="post" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
 
                                         <div class="form-group mb-3">
                                             <div class="form-group">
                                                 <input type="file" class="form-control"  name="image" multiple placeholder="Choose image" id="image">
+                                                <br>
+                                                @if($slider->image)
+                                                    <img src="{{asset($slider->image)}}" alt="" style="max-height: 150px;max-width: 150px;">
+                                                @endif
 
                                             </div>
 
-                                            <div class="form-group mb-3">
+{{--                                            <div class="form-group mb-3">
                                                 <img class="rounded float-start" id="preview-image-before-upload" src=""
-                                                     style="max-height: 150px;max-width: 150px;" >
-                                            </div>
+                                                     style="max-height: 100px;max-width: 100px;" >
+                                            </div>--}}
 
                                         </div>
 
 
+
                                 <div class="form-group mb-3">
                                     <label class="form-check-label" for="name">Title</label>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Title" value="{{old('name')}}" >
+                                    <input type="text" id="name" name="name" class="form-control"  value="{{$slider->name}}" >
                                     @error('name') <smal class="text-danger">{{$message}}</smal> @enderror
                                 </div>
                                  <div class="form-group  mb-3">
                                      <label for="Description" class="form-label">Description</label>
-                                     <textarea id="Description" class="form-control" name="description" id="" rows="3">{{old('description')}}</textarea>
+                                     <textarea id="Description" class="form-control" name="description" id="" rows="3">{{$slider->description}}</textarea>
                                  </div>
 
                                 <div class="form-group ">
                                     <label class="form-check-label" for="inlineCheckbox2">Status</label><br>
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                    <input class="form-check-input" type="checkbox"  {{$slider->status ==1 ? 'checked' : ''}} id="inlineCheckbox2"
                                            name="status" style="width: 30px;height: 30px"  >
                                     @error('status') <smal class="text-danger">{{$message}}</smal> @enderror
                                 </div>
                                 <div class="form-group">
-                                            <button type="submit" class="btn btn-primary float-end">Save</button>
+                                            <button type="submit" class="btn btn-primary float-end">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -128,7 +134,28 @@
     </div>
     </div>
 @endsection
+{{--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
 
+    $(document).ready(function (e) {
+
+
+        $('#image').change(function(){
+
+            let reader = new FileReader();
+
+            reader.onload = (e) => {
+
+                $('#preview-image-before-upload').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0]);
+
+        });
+
+    });
+
+</script>--}}
 
 @section('toastr_css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"

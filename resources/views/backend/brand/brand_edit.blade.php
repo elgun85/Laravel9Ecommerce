@@ -17,10 +17,24 @@
                         @csrf
                         @method('PUT')
 
+
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text"  name="name"  placeholder="Name" class="form-control" value="{{$brands_edit->name}}">
                             @error('name') <smal class="text-danger">{{$message}}</smal> @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category_id" class="form-select" aria-label="Default select example" >
+
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+
+                            </select>
+                            @error('category_id') <smal class="text-danger">{{$message}}</smal> @enderror
+
                         </div>
 
                         <div class="form-group ">
@@ -50,18 +64,24 @@
                 <div class="card-body">
                     <table class="table table-bordered table-striped table-hover ">
                         <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>Id</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($brands as $brand)
-                            <tr>
+                            <tr class="text-center">
                                     <td>{{$brand->id}}</td>
                                     <td>{{$brand->name}}</td>
+                                @if($brand->category_id)
+                                    <td>{{$brand->category->name}}</td>
+                                @else
+                                   <td>No Category</td>
+                                @endif
                                     <td>{{$brand->status == '1'? 'Hidden':'Visible'}}</td>
                                     <td>
                                         <a href="{{route('brand.edit',$brand->id)}}" class="btn btn-outline-primary btn-sm" ><i class="fas fa-edit"></i></a>
