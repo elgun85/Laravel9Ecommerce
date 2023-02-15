@@ -8,7 +8,23 @@ use Livewire\Component;
 
 class ProductView extends Component
 {
-    public $category,$product,$productColorSelectedQuantity;
+    public $category,$product,$productColorSelectedQuantity,$quantityCount=1;
+
+    public function decrementQuantity()
+    {
+        if ($this->quantityCount > 1)
+        {
+            $this->quantityCount--;
+        }
+    }
+    public function icrementQuantity()
+    {
+        if ($this->quantityCount < 10)
+        {
+            $this->quantityCount++;
+        }
+
+    }
 
     public function adToWishlist($productId)
     {
@@ -35,6 +51,20 @@ class ProductView extends Component
         }
     }
 
+    public function addToCard(int $productcardId)
+    {
+        dd($productcardId);
+        /*        if (Auth::check())
+                {
+        dd('asdfdf');
+                }
+                else
+                {
+                    session()->flash('message','Please login to add card');
+                }*/
+    }
+
+
     public function colorSelected($productColorId)
     {
         $productColor=$this->product->productColors()->where('id',$productColorId)->first();
@@ -45,6 +75,10 @@ class ProductView extends Component
       }
 
     }
+
+
+
+
 
     public function mount($category,$product)
     {
