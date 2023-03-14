@@ -11,6 +11,10 @@ use App\Http\Controllers\Frontend\WishlistController;
 
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\CardlistController;
+use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\TestController;
+use App\Http\Controllers\Frontend\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +34,17 @@ use App\Http\Controllers\Frontend\FrontendController;
                             /*         Frontend      */
 
 Route::get('/',[FrontendController::class,'index'])->name('index');
+Route::get('/thank_you',[FrontendController::class,'thank_you'])->name('thank_you');
+Route::get('/test_index',[TestController::class,'index'])->name('test_index');
 Route::get('/category',[FrontendController::class,'category'])->name('category');
 
 Route::middleware(['auth'])->group(function ()
 {
     Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlistIndex');
+    Route::get('/cardlist',[CardlistController::class,'index'])->name('cardlist');
+    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+    Route::get('/orders',[OrdersController::class,'index'])->name('orders');
+    Route::get('/orders_show{id}',[OrdersController::class,'show'])->name('orders_show');
 
 });
 

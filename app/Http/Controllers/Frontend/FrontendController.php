@@ -56,6 +56,11 @@ return view('frontend.category.product_index',compact('category'));
         }
     }
 
+public function thank_you()
+{
+    return view('frontend.thank_you');
+}
+
 
 
 

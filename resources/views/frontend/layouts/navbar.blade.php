@@ -29,6 +29,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('orders')}}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('test_index')}}">Test</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown
@@ -54,9 +60,11 @@
                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
                 </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
+                <a class="nav-icon position-relative text-decoration-none" href="{{route('cardlist')}}">
                     <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
+                        <livewire:frontend.cart.cart-count/>
+                    </span>
                 </a>
 
 
@@ -94,8 +102,33 @@
                 @if (Route::has('login'))
                     <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                         @auth
-                            <a href="{{ route('dashboard') }}" class="btn btn-outline-light text-sm text-gray-700 dark:text-gray-500 underline"
-                               style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Dashboard</a>
+                            @if(Auth::user()->type == 'admin')
+                                <a href="{{ route('dashboard') }}" class="btn btn-outline-light text-sm text-gray-700 dark:text-gray-500 underline"
+                                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Dashboard</a>
+
+
+
+                                <a href="{{ route('logout') }}" class="btn btn-outline-light text-sm text-gray-700 dark:text-gray-500 underline"
+                                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                ><i class="mdi mdi-logout text-primary"></i>   {{ __('Logout') }}</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endif
+
+                                @if(Auth::user()->type == 'user')
+                                    <a href="{{ route('logout') }}" class="btn btn-outline-light text-sm text-gray-700 dark:text-gray-500 underline"
+                                       style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                    ><i class="mdi mdi-logout text-primary"></i>   {{ __('Logout') }}</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                @endif
+
                         @else
                             <a href="{{ route('login') }}" class="btn btn-outline-light text-sm text-gray-700 dark:text-gray-500 underline"
                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Log in</a>

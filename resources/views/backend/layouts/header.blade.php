@@ -117,6 +117,25 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
                         <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+
+
+                        <a class="dropdown-item" href="{{route('index')}}">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-success">
+                                   {{--<i class="mdi mdi-information mx-0"></i>--}}
+                                    <i class="mdi mdi-home mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">Front</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Frontpage
+                                </p>
+                            </div>
+                        </a>
+
+
+
                         <a class="dropdown-item">
                             <div class="item-thumbnail">
                                 <div class="item-icon bg-success">
@@ -124,7 +143,7 @@
                                 </div>
                             </div>
                             <div class="item-content">
-                                <h6 class="font-weight-normal">Application Error</h6>
+                                <h6 class="font-weight-normal">Front</h6>
                                 <p class="font-weight-light small-text mb-0 text-muted">
                                     Just now
                                 </p>
@@ -158,6 +177,7 @@
                         </a>
                     </div>
                 </li>
+
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                         <img src="{{asset('admin/')}}/images/faces/face5.jpg" alt="profile"/>

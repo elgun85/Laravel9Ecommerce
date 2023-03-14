@@ -19,7 +19,23 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->type==='admin')
+        if (Auth::user()->type == 'admin')
+        {
+            return $next($request);
+
+        }
+        elseif(Auth::user()->type == 'user')
+        {
+            return redirect('/');
+        }
+        else
+        {
+            return redirect('/login')->with('status','Access Denied. As you are not Admin ');
+        }
+
+      //  return $next($request);
+
+/*        if (Auth::user()->type==='admin')
         {
             return $next($request);
         }
@@ -27,6 +43,7 @@ class AdminMiddleware
         {
             session()->flush();
             return redirect('/login')->with('status','get burdan');
-        }
+return redirect('/login')->with('status','Access Denied. As you are not Admin ');
+        }*/
     }
 }

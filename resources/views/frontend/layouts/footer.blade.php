@@ -101,6 +101,12 @@
 <script src="{{asset('frontend/')}}/assets/js/templatemo.js"></script>
 <script src="{{asset('frontend/')}}/assets/js/custom.js"></script>
 
+@yield('alertify_js')
+
+
+
+{{--@yield('toastr_js')--}}
+
 {{--Please go to login ---->alert--}}{{--
 <script>
     $(document).ready(function(){

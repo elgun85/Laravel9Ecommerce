@@ -9,6 +9,7 @@
                 <div class="card-header">
                     <h3>
                         Products
+
                         <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-end">Add Category</a>
                     </h3>
                 </div>

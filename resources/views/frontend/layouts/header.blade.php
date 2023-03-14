@@ -17,14 +17,14 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{asset('frontend/')}}/assets/css/fontawesome.min.css">
-    <!--
 
-    TemplateMo 559 Zay Shop
+@yield('alertify_css')
 
-    https://templatemo.com/tm-559-zay-shop
 
-    -->
+
     @livewireStyles
+    @stack('scripts')
+  {{--  @yield('toastr_css')--}}
 </head>
 <body>
 
